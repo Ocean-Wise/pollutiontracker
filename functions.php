@@ -117,11 +117,12 @@ add_action( 'widgets_init', 'tracker_widgets_init' );
  * Enqueue scripts and styles.
  */
 function tracker_scripts() {
-	wp_enqueue_style( 'tracker-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'tracker-style', get_stylesheet_uri(), false, filemtime(get_stylesheet_directory() . '/style.css') );
 
-	wp_enqueue_script( 'tracker-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( 'tracker-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', false );
 
 	wp_enqueue_script( 'tracker-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -132,27 +133,27 @@ add_action( 'wp_enqueue_scripts', 'tracker_scripts' );
 /**
  * Implement the Custom Header feature.
  */
-require get_template_directory() . '/inc/custom-header.php';
+require get_theme_file_path() . '/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require get_theme_file_path() . '/inc/template-tags.php';
 
 /**
  * Functions which enhance the theme by hooking into WordPress.
  */
-require get_template_directory() . '/inc/template-functions.php';
+require get_theme_file_path() . '/inc/template-functions.php';
 
 /**
  * Customizer additions.
  */
-require get_template_directory() . '/inc/customizer.php';
+require get_theme_file_path() . '/inc/customizer.php';
 
 /**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+	require get_theme_file_path() . '/inc/jetpack.php';
 }
 
