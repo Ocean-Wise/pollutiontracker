@@ -14,6 +14,36 @@ if ($contaminant_id){
 	$contaminant = $wpdb->get_row($sql);
 }
 
+$contaminants = $wpdb->get_results("SELECT * FROM wp_contaminants ORDER BY name;");
+$arrNav = [];
+$arrContaminantsAssoc = [];
+foreach($contaminants as $item){
+	/*$posts = $wpdb->get_results("SELECT * FROM $wpdb->postmeta WHERE meta_key = 'contaminant_id' AND  meta_value = {$item->id} LIMIT 1", ARRAY_A);
+	if (count($posts) && $posts[0]['post_id']){
+		$post_id = $posts[0]['post_id'];
+		$slug = get_post_field( 'post_name', $post_id );
+		$item->slug = $slug;
+	}*/
+	//$arrContaminantsAssoc[$item['id']]=$item;
+};
+
+/*
+// Put contaminants in to heirarchy for nav
+$arrNav = get_nav_children(null, $arrContaminantsAssoc);
+function get_nav_children($parent, $arr_items){
+	$arr_return = [];
+	foreach($arr_items as $item) {
+		if ($item['parent_id']==$parent) {
+			$children = get_nav_children($item['id'], $arr_items);
+			$item['items'] = $children;
+			$arr_return[] = $item;
+		}
+	}
+	return $arr_return;
+}
+*/
+
+
 if ($contaminant){
 	$values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id));
 }
@@ -26,6 +56,9 @@ get_header(); ?>
 			<?php
 			while ( have_posts() ) : the_post();
 
+			$walker = new PTWalker();
+			echo $walker->walk($contaminants, 3);
+
 ?>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
@@ -33,7 +66,11 @@ get_header(); ?>
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">
+
 			<?php
+
+			echo $nav_html;
+
 			if ($values){
 				foreach($values as $site){
 					echo "<div>{$site->name}: {$site->value}</div>";
