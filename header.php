@@ -22,20 +22,49 @@
 
 <body <?php body_class(); ?>>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'tracker' ); ?></a>
-
 	<header id="masthead" class="site-header">
-		<div class="logo">PollutionTracker</div>
+        <div class="hello-bar">
+            <div class="hello-bar-text">
+                Explore <span class="hello-bar-hide-mobile">more at </span><a href="https://ocean.org" target="_blank">ocean.org</a>
+            </div>
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'tracker' ); ?></button>
-			<?php
-				wp_nav_menu( array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				) );
-			?>
-		</nav><!-- #site-navigation -->
+            <div class="hello-bar-logo-toggle">
+                <img class="hello-bar-logo" src="https://vanaqua.org/themes/vanaqua/images/hello-bar-ow-logo.svg">
+                <a id="hello-bar-toggle" class="hello-bar-btn hello-bar-btn-open">
+                    <img class="hello-bar-icon" src="https://vanaqua.org/themes/vanaqua/images/hello-bar-chevron.svg">
+                </a>
+            </div>
+
+            <div class="hello-bar-menu hello-bar-menu-closed">
+                <ul class="hello-bar-nav">
+                    <li><a href="https://ocean.org" target="_blank">Ocean Wise</a></li>
+                    <li><a href="http://vanaqua.org" target="_blank">Vancouver Aquarium</a></li>
+                    <li><a href="https://ocean.org/seafood" target="_blank">Sustainable Seafood</a></li>
+                    <li><a href="https://shorelinecleanup.ca" target="_blank">Shoreline Cleanup</a></li>
+                    <li><a href="https://ocean.org/research" target="_blank">Ocean Research</a></li>
+                    <li><a href="https://ocean.org/education" target="_blank">Ocean Education</a></li>
+                    <li><a href="http://wildwhales.org" target="_blank">Whale Sightings</a></li>
+                    <li><a href="https://aquablog.ca/" target="_blank">Aquablog</a></li>
+                    <li><a href="https://ocean.org/donate" target="_blank">Donate</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-width">
+            <div class="top-bar ">
+                <div class="logo"><span class="bold">Pollution</span>Tracker</div>
+
+                <nav id="site-navigation" class="main-navigation">
+                    <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'tracker' ); ?></button>
+                    <?php
+                        wp_nav_menu( array(
+                            'theme_location' => 'menu-1',
+                            'menu_id'        => 'primary-menu',
+                            'depth'         => 1
+                        ) );
+                    ?>
+                </nav><!-- #site-navigation -->
+            </div>
+        </div>
 	</header><!-- #masthead -->
 
 	<div id="content" class="site-content">

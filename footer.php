@@ -13,18 +13,28 @@
 
 	</div><!-- #content -->
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'tracker' ) ); ?>"><?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'tracker' ), 'WordPress' );
-			?></a>
-			<span class="sep"> | </span>
-			<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'tracker' ), 'tracker', '<a href="http://smashlab.com">smashLAB</a>' );
-			?>
-		</div><!-- .site-info -->
+	<footer id="colophon" class="site-footer max-width">
+		<div class="footer-top">
+			<?php wp_nav_menu( array(
+			'theme_location' => 'footer-top',
+			'depth'         => 1
+			) );?>
+			<img class="logo" src="<?php echo get_template_directory_uri();?>/images/logo-oceanwise.svg">
+		</div>
+		<div class="footer-bottom">
+			<?php wp_nav_menu( array(
+				'theme_location' => 'footer-bottom',
+				'depth'         => 1
+			) );?>
+			<div class="copyright">&copy;<?php echo date('Y');?> Ocean&nbsp;Wise</div>
+			<ul class="social-icons">
+				<li><a href="#" class="socicon-facebook"></a></li>
+				<li><a href="#" class="socicon-twitter"></a></li>
+				<li><a href="#" class="socicon-instagram"></a></li>
+				<li><a href="#" class="socicon-youtube"></a></li>
+				<li><a href="#" class="socicon-snapchat"></a></li>
+			</ul>
+		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

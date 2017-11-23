@@ -45,7 +45,8 @@ function get_nav_children($parent, $arr_items){
 
 
 if ($contaminant){
-	$values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id));
+	$sediment_values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id, 'source_id'=>1));
+	$mussels_values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id, 'source_id'=>2));
 }
 
 get_header(); ?>
@@ -71,8 +72,8 @@ get_header(); ?>
 
 			echo $nav_html;
 
-			if ($values){
-				foreach($values as $site){
+			if ($sediment_values){
+				foreach($sediment_values as $site){
 					echo "<div>{$site->name}: {$site->value}</div>";
 				}
 			}

@@ -45,6 +45,8 @@ if ( ! function_exists( 'tracker_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
 			'menu-1' => esc_html__( 'Primary', 'tracker' ),
+			'footer-top' => esc_html__( 'Footer top', 'tracker' ),
+			'footer-bottom' => esc_html__( 'Footer bottom', 'tracker' ),
 		) );
 
 		/*
@@ -118,6 +120,10 @@ add_action( 'widgets_init', 'tracker_widgets_init' );
  */
 function tracker_scripts() {
 	wp_enqueue_style( 'tracker-style', get_stylesheet_uri(), false, filemtime(get_stylesheet_directory() . '/style.css') );
+	wp_enqueue_style( 'hello-bar', 'https://vanaqua.org/themes/vanaqua/media/css/hello-bar.css',false );
+	wp_enqueue_style( 'social-icon-font', 'https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh',false );
+
+
 
 	wp_enqueue_script( 'tracker-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', false );
 
@@ -128,7 +134,7 @@ function tracker_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'tracker_scripts' );
+add_action( 'wp_enqueue_scripts', 'tracker_scripts', 99 ); // To load our stylesheet last
 
 /**
  * Implement the Custom Header feature.

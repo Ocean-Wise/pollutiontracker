@@ -262,25 +262,52 @@ th {
 /*--------------------------------------------------------------
 # Typography
 --------------------------------------------------------------*/
+html{
+    font-size: 62.5%;
+}
+
+body{
+    color: #434343;
+}
+
 body,
 button,
 input,
 select,
 optgroup,
 textarea {
-	color: #404040;
-	font-family: sans-serif;
-	font-size: 16px;
-	font-size: 1rem;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-size: 17px;
+	font-size: 1.7rem;
 	line-height: 1.5;
+}
+
+.larger{
+    font-size: 2.2rem;
+}
+
+.lightText{
+    color: #fff;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	clear: both;
 }
 
+#et_builder_outer_content h1,
+#et_builder_outer_content h2,
+#et_builder_outer_content h3,
+#et_builder_outer_content h4,
+#et_builder_outer_content h5,
+#et_builder_outer_content h6{
+    line-height: 1.2;
+    margin-bottom: 0.2em;
+}
+
 p {
 	margin-bottom: 1.5em;
+    line-height: 1.45 !important;
+    margin-bottom: 1.4em !important;
 }
 
 dfn, cite, em, i {
@@ -342,7 +369,7 @@ html {
 }
 
 body {
-	background: #fff;
+	background: #5A6477;
 	/* Fallback for when there is no custom background color defined. */
 }
 
@@ -363,6 +390,17 @@ ul {
 
 ol {
 	list-style: decimal;
+}
+
+ul.plain{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.plain li{
+    padding: 0;
+    margin: 0 0 0.5em 0;
 }
 
 li > ul,
@@ -483,23 +521,46 @@ textarea {
 /*--------------------------------------------------------------
 # Navigation
 --------------------------------------------------------------*/
+
+.logo{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    font-size: 2.2rem;
+    flex: 1;
+}
+
+.logo .bold{
+    font-weight: bold;
+}
+
+body.home .site-header{
+    background-color: #000;
+    color: #fff;
+}
+
+.site-navigation{
+    flex: 1;
+}
+
 /*--------------------------------------------------------------
 ## Links
 --------------------------------------------------------------*/
 a {
-	color: royalblue;
+	color: #fff;
+    text-decoration: none;
 }
 
 a:visited {
-	color: purple;
+	color: #fff;
 }
 
 a:hover, a:focus, a:active {
-	color: midnightblue;
+	color: #fff;
+    text-decoration: underline;
 }
 
 a:focus {
-	outline: thin dotted;
+	outline: none;
 }
 
 a:hover, a:active {
@@ -510,55 +571,23 @@ a:hover, a:active {
 ## Menus
 --------------------------------------------------------------*/
 .main-navigation {
-	clear: both;
-	display: block;
-	float: left;
-	width: 100%;
 }
 
-.main-navigation ul {
-	display: none;
-	list-style: none;
-	margin: 0;
-	padding-left: 0;
+.main-navigation ul{
+    list-style: none;
 }
 
-.main-navigation ul ul {
-	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-	float: left;
-	position: absolute;
-	top: 100%;
-	left: -999em;
-	z-index: 99999;
+.main-navigation li{
+    display: inline-block;
 }
 
-.main-navigation ul ul ul {
-	left: -999em;
-	top: 0;
-}
-
-.main-navigation ul ul li:hover > ul,
-.main-navigation ul ul li.focus > ul {
-	left: 100%;
-}
-
-.main-navigation ul ul a {
-	width: 200px;
-}
-
-.main-navigation ul li:hover > ul,
-.main-navigation ul li.focus > ul {
-	left: auto;
-}
-
-.main-navigation li {
-	float: left;
-	position: relative;
-}
-
-.main-navigation a {
-	display: block;
-	text-decoration: none;
+.main-navigation li a{
+    display: inline-block;
+    color: #fff;
+    font-size: 1.8rem;
+    margin-left: 20px;
+    text-decoration: none;
+    opacity: 0.8;
 }
 
 /* Small menu. */
@@ -576,27 +605,6 @@ a:hover, a:active {
 	}
 }
 
-.site-main .comment-navigation, .site-main
-.posts-navigation, .site-main
-.post-navigation {
-	margin: 0 0 1.5em;
-	overflow: hidden;
-}
-
-.comment-navigation .nav-previous,
-.posts-navigation .nav-previous,
-.post-navigation .nav-previous {
-	float: left;
-	width: 50%;
-}
-
-.comment-navigation .nav-next,
-.posts-navigation .nav-next,
-.post-navigation .nav-next {
-	float: right;
-	text-align: right;
-	width: 50%;
-}
 
 /*--------------------------------------------------------------
 # Accessibility
@@ -709,8 +717,113 @@ a:hover, a:active {
 # Content
 --------------------------------------------------------------*/
 .site-header{
-    background-color: #1b6d85;
     color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+}
+
+.top-bar{
+    display: flex;
+    flex-direction: row;
+    padding: 40px 0 0px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+.site-footer{
+    font-size: 1.8rem;
+    color: #fff;
+    margin-top: 45px;
+    margin-bottom: 50px;
+}
+
+.site-footer .logo{
+    flex: 0;
+}
+
+.site-footer li{
+    display: inline-block;
+}
+
+.site-footer .copyright{
+    font-size: 1.4rem;
+    flex: 1;
+}
+
+ul.footer-links{
+    margin-right: 15px;
+}
+
+.footer-top{
+    display: flex;
+    padding-bottom: 22px;
+}
+
+.footer-top .menu li{
+    display: block;
+    line-height: 1.6;
+}
+
+.footer-top .menu-footer-top-container{
+    flex: 1;
+}
+
+
+.site-footer .menu{
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+
+.site-footer .menu a{
+    margin-right: 20px;
+}
+
+.footer-bottom{
+    padding-top: 15px;
+    display: flex;
+    align-items: baseline;
+}
+
+.footer-top{
+    border-bottom: 1px solid #fff;
+}
+
+.site-footer .social-icons li{
+    margin-left: 20px;
+}
+
+.max-width{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.et_divi_builder #et_builder_outer_content .et_pb_fullwidth_header .et_pb_fullwidth_header_container{
+    max-width: 1200px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+body.home .et_pb_section_0 .header-content{
+    max-width: 750px !important;
+    min-height: 40vh;
+    margin: 40px auto !important;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+body.home h1{
+    font-size: 4.9rem;
+    font-weight: bold;
+    margin-bottom: 0.2em !important;
+}
+
+.site-content{
+    background-color: #E6E7EB;
 }
 
 /*--------------------------------------------------------------
@@ -721,7 +834,7 @@ a:hover, a:active {
 }
 
 .hentry {
-	margin: 0 0 1.5em;
+	margin: 0;
 }
 
 .updated:not(.published) {
@@ -925,12 +1038,14 @@ body.show-map{
     top: 0;
     bottom: 0;
     background-color: #fff !important;
-    width: 300px;
+    width: 500px;
     z-index: 1001;
     margin-top: 35px !important;
     padding:15px !important;
     transform: translateX(100%);
     transition: transform 300ms ease !important;
+	overflow-y: scroll;
+;
 
 }
 
