@@ -123,6 +123,7 @@ function tracker_scripts() {
 	wp_enqueue_style( 'hello-bar', 'https://vanaqua.org/themes/vanaqua/media/css/hello-bar.css',false );
 	wp_enqueue_style( 'social-icon-font', 'https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh',false );
 
+    //wp_deregister_style('et-builder-modules-style');
 
 
 	wp_enqueue_script( 'tracker-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', false );
@@ -135,6 +136,18 @@ function tracker_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'tracker_scripts', 99 ); // To load our stylesheet last
+
+
+add_filter( 'password_protected_is_active', 'check_password_protected');
+// Disable Password Protected for temporary map page (for client preview)
+function check_password_protected($arg1){
+    global $post;
+    if ($post) {
+        $slug = $post->post_name;
+        if ($slug && $slug == 'map') return false;
+    }
+    return true;
+}
 
 /**
  * Implement the Custom Header feature.

@@ -22,7 +22,7 @@
 
 <body <?php body_class(); ?>>
 <div id="page" class="site">
-	<header id="masthead" class="site-header">
+	<header id="masthead" class="site-header<?php if (is_front_page()) echo" lightText";?>">
         <div class="hello-bar">
             <div class="hello-bar-text">
                 Explore <span class="hello-bar-hide-mobile">more at </span><a href="https://ocean.org" target="_blank">ocean.org</a>
@@ -51,7 +51,7 @@
         </div>
         <div class="max-width">
             <div class="top-bar ">
-                <div class="logo"><span class="bold">Pollution</span>Tracker</div>
+                <div class="logo"><a href="/"><span class="bold">Pollution</span>Tracker</a></div>
 
                 <nav id="site-navigation" class="main-navigation">
                     <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'tracker' ); ?></button>

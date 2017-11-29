@@ -15,39 +15,34 @@ if ($contaminant_id){
 }
 
 $contaminants = $wpdb->get_results("SELECT * FROM wp_contaminants ORDER BY name;");
+$nav_contaminants = $wpdb->get_results("
+SELECT *
+FROM
+	wp_contaminants WHERE
+	(parent_id IS NULL AND aggregate IS NULL) OR
+	(is_group=1 AND aggregate=1) OR
+	parent_id = 38
+ORDER BY name;"
+);
+
+
 $arrNav = [];
 $arrContaminantsAssoc = [];
-foreach($contaminants as $item){
-	/*$posts = $wpdb->get_results("SELECT * FROM $wpdb->postmeta WHERE meta_key = 'contaminant_id' AND  meta_value = {$item->id} LIMIT 1", ARRAY_A);
-	if (count($posts) && $posts[0]['post_id']){
-		$post_id = $posts[0]['post_id'];
-		$slug = get_post_field( 'post_name', $post_id );
-		$item->slug = $slug;
-	}*/
-	//$arrContaminantsAssoc[$item['id']]=$item;
-};
-
-/*
-// Put contaminants in to heirarchy for nav
-$arrNav = get_nav_children(null, $arrContaminantsAssoc);
-function get_nav_children($parent, $arr_items){
-	$arr_return = [];
-	foreach($arr_items as $item) {
-		if ($item['parent_id']==$parent) {
-			$children = get_nav_children($item['id'], $arr_items);
-			$item['items'] = $children;
-			$arr_return[] = $item;
-		}
-	}
-	return $arr_return;
-}
-*/
-
 
 if ($contaminant){
-	$sediment_values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id, 'source_id'=>1));
-	$mussels_values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id, 'source_id'=>2));
+	$values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id));
+	//echo "<pre>" . print_r($values,true) . "</pre>";
+	$max_sediment = 0;
+	$max_mussels = 0;
+	foreach($values as $value){
+		if ($value->sediment_value > $max_sediment) $max_sediment = $value->sediment_value;
+		if ($value->mussels_value > $max_mussels) $max_mussels = $value->mussels_value;
+	}
+
 }
+
+
+
 
 get_header(); ?>
 
@@ -56,33 +51,48 @@ get_header(); ?>
 
 			<?php
 			while ( have_posts() ) : the_post();
-
-			$walker = new PTWalker();
-			echo $walker->walk($contaminants, 3);
-
-?>
+			?>
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header">
+		<header class="entry-header max-width">
+			<a href="/contaminants" class="showLeftNav arrowLeft">View all contaminants</a>
 			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">
 
+			<table class="histogram">
+
 			<?php
 
-			echo $nav_html;
-
-			if ($sediment_values){
-				foreach($sediment_values as $site){
-					echo "<div>{$site->name}: {$site->value}</div>";
+			//echo $nav_html;
+			if ($values){
+				foreach($values as $site){
+					$sediment_percent = ($max_sediment)?($site->sediment_value / $max_sediment * 100):0;
+					$mussels_percent = ($max_mussels)?($site->mussels_value / $max_mussels * 100):0;
+					echo "<tr><td class='sediment'><div class='bar' style='max-width:{$sediment_percent}%;'><div class='value'>{$site->sediment_value}</div></div></td><td class='name'><a class='border' href='#Map|{$site->site_id}'>{$site->name}</a></td><td class='mussels'><div class='bar' style='max-width:{$mussels_percent}%;'><div class='value'>{$site->mussels_value}</div></div></td></tr>";
 				}
 			}
-			the_content();
+			the_content();?>
 
+			</table>
+
+		<?php
 		endwhile; // End of the loop.
 		?>
 
 		</main><!-- #main -->
+
+		<div id="left-nav">
+			<div class="close">&times;</div>
+			<h2>Contaminants</h2>
+			<ul>
+			<?php
+			$walker = new PTWalker();
+			echo $walker->walk($nav_contaminants,3);
+			?>
+			</ul>
+		</div>
+
 	</div><!-- #primary -->
 
 <?php

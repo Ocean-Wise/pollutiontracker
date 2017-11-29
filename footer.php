@@ -13,7 +13,7 @@
 
 	</div><!-- #content -->
 
-	<footer id="colophon" class="site-footer max-width">
+	<footer id="colophon" class="site-footer max-width lightText">
 		<div class="footer-top">
 			<?php wp_nav_menu( array(
 			'theme_location' => 'footer-top',
@@ -36,6 +36,10 @@
 			</ul>
 		</div>
 	</footer><!-- #colophon -->
+
+	<div id="map-wrap">
+		<?php echo do_shortcode('[PTMap]');?>
+	</div>
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

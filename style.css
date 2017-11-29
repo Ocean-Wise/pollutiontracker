@@ -114,8 +114,8 @@ dfn {
 }
 
 h1 {
-	font-size: 2em;
-	margin: 0.67em 0;
+	font-size: 3.2rem;
+	margin: 0 0 0.67em 0;
 }
 
 mark {
@@ -292,6 +292,7 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
 	clear: both;
+    margin: 0 0 0.67em 0;
 }
 
 #et_builder_outer_content h1,
@@ -302,7 +303,19 @@ h1, h2, h3, h4, h5, h6 {
 #et_builder_outer_content h6{
     line-height: 1.2;
     margin-bottom: 0.2em;
+    font-weight: bold;
 }
+
+#et_builder_outer_content h1{
+    font-size: 4.8rem;
+}
+#et_builder_outer_content h2{
+    font-size: 3.2rem;
+}
+#et_builder_outer_content h3{
+    font-size: 2.2rem;
+}
+
 
 p {
 	margin-bottom: 1.5em;
@@ -533,6 +546,10 @@ textarea {
     font-weight: bold;
 }
 
+.site-header{
+    background-color: #E6E7EB;
+}
+
 body.home .site-header{
     background-color: #000;
     color: #fff;
@@ -546,17 +563,21 @@ body.home .site-header{
 ## Links
 --------------------------------------------------------------*/
 a {
-	color: #fff;
+	color: #434343;
     text-decoration: none;
 }
 
 a:visited {
-	color: #fff;
+	color: #434343;
 }
 
 a:hover, a:focus, a:active {
-	color: #fff;
+	color: #434343;
     text-decoration: underline;
+}
+
+.lightText a, .lightText a:visited, .lightText a:hover, .lightText a:active, .lightText a:focus{
+    color: #fff;
 }
 
 a:focus {
@@ -567,14 +588,37 @@ a:hover, a:active {
 	outline: 0;
 }
 
+a.arrowLeft{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+}
+a.arrowLeft:before{
+    content:'';
+    background-image: url(images/arrow.svg);
+    background-size: contain;
+    width: 11px;
+    height: 16px;
+    position: absolute;
+    left: 0;
+    top: 4px;
+    margin: auto;
+}
+
 /*--------------------------------------------------------------
 ## Menus
 --------------------------------------------------------------*/
 .main-navigation {
 }
 
+body.show-map .site-header{
+    display: none;
+}
+
 .main-navigation ul{
     list-style: none;
+    margin: 0 0 19px 0;
 }
 
 .main-navigation li{
@@ -583,11 +627,15 @@ a:hover, a:active {
 
 .main-navigation li a{
     display: inline-block;
-    color: #fff;
+    color: #434343;
     font-size: 1.8rem;
     margin-left: 20px;
     text-decoration: none;
     opacity: 0.8;
+}
+
+body.home .main-navigation li a{
+    color: #fff;
 }
 
 /* Small menu. */
@@ -604,6 +652,67 @@ a:hover, a:active {
 		display: block;
 	}
 }
+
+#left-nav{
+    position: fixed;
+    height: calc(100% - 48px);
+    min-width: 250px;
+    max-width: 400px;
+    left: 0;
+    top: 48px;
+    background-color: #ebebeb;
+    border-right: 1px solid #ddd;
+    box-shadow: 0  0 5px rgba(0,0,0,0.5);
+    overflow: scroll;
+    padding: 20px;
+    z-index: 9999;
+    transform: translateX(-105%);
+    transition: transform 0.5s;
+}
+
+.show-left-nav #left-nav{
+    transform: translateX(0);
+    transition: transform 0.25s;
+
+}
+
+#left-nav .close{
+    font-size: 35px;
+    position: absolute;
+    right: 13px;
+    top: 3px;
+    color: #434343;
+    opacity: 0.5;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#left-nav .close:hover{
+    opacity: 1;
+}
+
+#left-nav ul.pesticides{
+    margin: 0;
+}
+
+#left-nav ul{
+    margin: 0 0 1em ;
+    padding: 0;
+    list-style: none;
+}
+
+#left-nav li{
+    list-style: none;
+}
+
+#left-nav li.is_group{
+}
+
+#left-nav ul ul{
+    margin-left: 15px;
+}
+
 
 
 /*--------------------------------------------------------------
@@ -717,17 +826,34 @@ a:hover, a:active {
 # Content
 --------------------------------------------------------------*/
 .site-header{
-    color: #fff;
+    color: #434343;
     position: fixed;
     width: 100%;
     z-index: 9999;
+}
+
+body.home .site-header{
+    color: #fff;
+}
+
+.bgBeige{
+    background-color: #F2E7E7 !important;
 }
 
 .top-bar{
     display: flex;
     flex-direction: row;
     padding: 40px 0 0px 0;
+    border-bottom: 1px solid rgba(67,67,67,0.25);
+
+}
+
+body.home .top-bar{
     border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+.entry-header{
+    padding-top: 50px;
 }
 
 .site-footer{
@@ -817,13 +943,12 @@ body.home .et_pb_section_0 .header-content{
 }
 
 body.home h1{
-    font-size: 4.9rem;
-    font-weight: bold;
     margin-bottom: 0.2em !important;
 }
 
 .site-content{
     background-color: #E6E7EB;
+    padding-top: 135px;
 }
 
 /*--------------------------------------------------------------
@@ -844,7 +969,7 @@ body.home h1{
 .page-content,
 .entry-content,
 .entry-summary {
-	margin: 1.5em 0 0;
+	margin: 0;
 }
 
 .page-links {
@@ -987,6 +1112,11 @@ object {
     background-color: #fff !important;
     transition: opacity 0.5s;
     flex-wrap: wrap;
+    z-index: 1000;
+}
+
+.map-preview{
+    cursor: pointer;
 }
 
 body.admin-bar .map-wrap{
@@ -1000,12 +1130,14 @@ body.admin-bar .map-wrap{
 .map-wrap .close-bar{
     position: relative;
     width: 100%;
-    background-color: #00c !important;
+    background-color: #283D51 !important;
+    font-size: 1.3rem;
+    font-weight: bold;
     color: #fff !important;
     z-index: 2000;
     text-align: center !important;
     cursor: pointer;
-    padding: 8px !important;
+    padding: 13px !important;
     flex: 1 0 100%;
     height: auto;
 }
@@ -1014,6 +1146,65 @@ body.admin-bar .map-wrap{
 	height: 100%;
     background-color: #fff;
     flex: 1 1 100%;
+}
+
+#map-wrap .panel h2{
+    font-size: 2.4rem;
+    margin: 0;
+    padding: 0 25px 0 0;
+    line-height: 1 !important;
+}
+
+#map-wrap .panel h3{
+    font-size: 1.4rem;
+    padding: 0;
+}
+
+#map-wrap .subhead{
+    margin: 0 0 12px 0;
+}
+
+#map-wrap p{
+    line-height: 1.1 !important;
+}
+
+#map-wrap .panel .header{
+    background-color: #D2D8DC;
+    padding: 15px 15px 0;
+}
+
+#map-wrap .panel .tabs{
+    margin: 0;
+    padding: 0;
+}
+
+#map-wrap .panel .tabs li{
+    display: inline-block;
+    background-color: #E3E9ED;
+    border-radius: 6px 6px 0 0;
+    padding: 6px;
+    width: calc(50% - 2px);
+    text-align: center;
+    margin: 0 1px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight:bold;
+}
+
+#map-wrap .panel .tabs li.active{
+    background-color: #fff;
+}
+
+#map-wrap .panel .site-ranking{
+    margin: 1px 0 0px 0;
+}
+
+#map-wrap .panel .site-ranking .content:first-of-type {
+    border-bottom: 1px solid #DBDBDB;
+}
+
+#map-wrap .panel .content{
+    padding: 15px !important;
 }
 
 body.show-map{
@@ -1031,27 +1222,226 @@ body.show-map{
     flex-direction: row;
 }
 
-.map-wrap .panel{
+#map-wrap .panel{
     position: absolute;
     height: auto;
     right: 0;
     top: 0;
     bottom: 0;
     background-color: #fff !important;
-    width: 500px;
+    width: 265px;
     z-index: 1001;
-    margin-top: 35px !important;
-    padding:15px !important;
+    margin-top: 45px !important;
+    padding: 0px !important;
     transform: translateX(100%);
     transition: transform 300ms ease !important;
 	overflow-y: scroll;
-;
+    font-size: 1.0rem;
+    -webkit-font-smoothing: subpixel-antialiased;
 
 }
 
-.map-wrap.show-panel .panel{
+#map-wrap .show-panel .panel{
     transform: translateX(0%);
 }
+
+#map-wrap .close{
+    font-size: 35px;
+    position: absolute;
+    right: 13px;
+    top: 3px;
+    color: #434343;
+    opacity: 0.5;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#map-wrap .close:hover{
+    opacity: 1;
+}
+
+#map-wrap .panel .rank{
+    margin: 34px 0 10px 0;
+}
+
+#map-wrap .panel .rank .graph{
+    height: 27px;
+    background-image: linear-gradient(270deg, #C60000 0%, #FFCB00 100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 4px;
+    align-items: center;
+    padding: 0 8px;
+    position: relative;
+}
+
+#map-wrap .panel .rank .lower-labels{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 3px 0 0;
+}
+
+#map-wrap .panel .rank .lower-labels .label {
+    color: #898989;
+    font-size: 0.8rem;
+}
+
+#map-wrap .panel .rank .pointerContainer{
+    position: absolute;
+    top: -11px;
+    left: 8px;
+    width: calc(100% - 16px);
+}
+
+#map-wrap .panel .rank .pointer{
+    position: absolute;
+    top: 0px;
+    border-style: solid;
+    border-color: #fff;
+    border-bottom-color: transparent;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 8px;
+    background-clip: border-box;
+    background-color: transparent;
+    width: 10px;
+    transform: translateX(-50%);
+}
+
+#map-wrap .panel .rank .pointer-label{
+    font-weight: bold;
+    -webkit-font-smoothing: subpixel-antialiased;
+    position: absolute;
+    top: -20px;
+    left: 1px;
+    font-size: 1.4rem;
+    color: #000;
+    transform: translateX(-50%);
+}
+
+#map-wrap .panel .rank .graph .label{
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+}
+
+#map-wrap .panel .contaminants-graph{
+    position: relative;
+    margin-top: 55px;
+}
+
+
+#map-wrap .panel .contaminant{
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#map-wrap .panel .contaminant .name{
+    font-size: 1.2rem;
+    font-weight:bold;
+    display: inline-block;
+    background-color: #fff;
+    z-index: 10;
+    position: relative;
+    left: 2px;
+}
+
+#map-wrap .panel .contaminant .graph{
+    position: relative;
+    padding: 5px 0;
+}
+
+#map-wrap .panel .contaminant .graph .bar{
+    background-color: #000;
+    height: 4px;
+    margin: 0;
+    border-radius: 2px;
+
+    background-image: linear-gradient(270deg, #C60000 0%, #FFCB00 100%);
+
+}
+
+#map-wrap .panel .contaminant .graph .indicator {
+    position: absolute;
+    top: -1px;
+    color: #fff;
+    background-color: #000;
+    padding: 3px;
+    width: 20px;
+    border-radius: 7px;
+    height: 15px;
+    display: inline-block;
+    line-height: 1;
+    /* display: flex; */
+    text-align: center;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-image: linear-gradient(270deg, #C60000 0%, #FFCB00 100%);
+    background-size: 300px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    z-index: 100;
+}
+
+.gridlines{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.gridline{
+    position: absolute;
+    border-left: 1px dotted #E9E9E9 !important;
+    height: calc(100% + 25px);
+    top: -10px;
+}
+
+.gridline:before{
+    content: attr(data-value) '\A' attr(data-label);
+    position: absolute;
+    top: -25px;
+    left: 0;
+    line-height: 1;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.gridline:first-of-type:before{
+    text-align: left;
+}
+
+.gridline:last-of-type:before{
+    text-align: right;
+    transform: translateX(-100%);
+}
+
+
+.gridline:nth-last-of-type(1){
+    left: calc(100% - (100% / 5 * 0));
+}
+.gridline:nth-last-of-type(2){
+    left: calc(100% - (100% / 5 * 1));
+}
+.gridline:nth-last-of-type(3){
+    left: calc(100% - (100% / 5 * 2));
+}
+.gridline:nth-last-of-type(4){
+    left: calc(100% - (100% / 5 * 3));
+}
+.gridline:nth-last-of-type(5){
+    left: calc(100% - (100% / 5 * 4));
+}
+.gridline:nth-last-of-type(6){
+    left: 0;
+}
+
 
 .leaflet-popup .title{
 	font-size: 14px;
@@ -1090,4 +1480,80 @@ body.show-map{
 	-ms-transform: rotate(45deg);
 	-o-transform: rotate(45deg);
 	transform: rotate(45deg) !important;
+}
+
+
+
+
+/*--------------------------------------------------------------
+## Histogram
+--------------------------------------------------------------*/
+.histogram{
+    width: 100%;
+}
+
+.histogram td{
+    position: relative;
+    vertical-align: middle;
+}
+
+.name .border{
+    border: 1px solid #BABDC5;
+    border-radius: 2px;
+    text-align: center;
+    padding: 1px 3px;
+    background-color: #fff;
+    white-space: nowrap;
+    margin: 3px 0;
+    font-size: 1.2rem;
+    display: block;
+    color: #434343;
+    font-weight:bold;
+    text-decoration: none;
+}
+
+.sediment{
+    text-align: right;
+    width: 50%;
+}
+
+.sediment .bar{
+    text-align: right;
+}
+
+.mussels{
+    text-align: left;
+    width: 50%;
+}
+
+
+.histogram .bar{
+    position: absolute;
+    background-color: #A9C4D4;
+    height: 15px;
+    display: inline-block;
+    width: 100%;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+}
+
+.histogram .sediment .bar{
+    right:0;
+}
+
+.histogram .mussels .bar{
+    left: 0;
+}
+
+.histogram .bar .value{
+    position: absolute;
+    font-size: 10px;
+}
+
+.histogram .sediment .value{
+    right: 10px;
+}
+.histogram .mussels .value{
+    left: 10px;
 }
