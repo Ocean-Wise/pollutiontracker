@@ -54,7 +54,6 @@
                 <div class="logo"><a href="/"><span class="bold">Pollution</span>Tracker</a></div>
 
                 <nav id="site-navigation" class="main-navigation">
-                    <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'tracker' ); ?></button>
                     <?php
                         wp_nav_menu( array(
                             'theme_location' => 'menu-1',
@@ -62,6 +61,19 @@
                             'depth'         => 1
                         ) );
                     ?>
+                </nav><!-- #site-navigation -->
+                <nav id="site-navigation-mobile" class="main-navigation-mobile">
+                    <div class="burger"><div class="line"></div><div class="line"></div><div class="line"></div></div>
+                    <div class="nav-panel">
+                        <a class="close" href="#">&times;</a>
+                    <?php
+                    wp_nav_menu( array(
+                        'theme_location' => 'menu-1',
+                        'menu_id'        => 'primary-menu',
+                        'depth'         => 1
+                    ) );
+                    ?>
+                    </div>
                 </nav><!-- #site-navigation -->
             </div>
         </div>
