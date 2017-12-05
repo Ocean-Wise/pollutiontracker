@@ -7,12 +7,18 @@ Template Name: Contaminant Page
 $values = get_post_custom( $post->ID );
 $contaminant_id = isset( $values['contaminant_id'] ) ? array_pop($values['contaminant_id']) : '';
 $contaminant = null;
+$child_contaminants = null;
 $values = null;
 
 if ($contaminant_id){
 	$sql = $wpdb->prepare("SELECT * FROM wp_contaminants WHERE id=%d", $contaminant_id);
 	$contaminant = $wpdb->get_row($sql);
 }
+
+// If aggregate contaminant, get children
+/*if ($contaminant->aggregate){
+    $child_contaminants = PollutionTracker::getChildContaminantValues(array('contaminant_id'=>$contaminant->id));
+}*/
 
 $contaminants = $wpdb->get_results("SELECT * FROM wp_contaminants ORDER BY name;");
 $nav_contaminants = $wpdb->get_results("
@@ -115,13 +121,28 @@ get_header(); ?>
                         $extra_label_mussels = (($site->mussels_value===null)?"<div class='extra-label'>Not analysed</div>":(($site->mussels_not_detected)?"<div class='extra-label'>Not detected</div>":''));
 
                         echo "<tr>";
-                        echo "<td class='sediment" . (($site->sediment_value!==null)?' bg-bar':'') . "'>" . $extra_label_sediment . "<div class='bar' data-value='{$site->sediment_value}'>";
+                        echo "<td class='sediment" . (($contaminant->aggregate && $site->sediment_value)?" tooltip-ajax":"") . (($site->sediment_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='1' data-contaminant-id='{$contaminant->id}'>" . $extra_label_sediment;
+                        echo "<div class='bar' data-value='{$site->sediment_value}'>";
                         echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_sediment)?'':$site->sediment_value) . "</div></div><div class='value dark'>" . (($extra_label_sediment)?'':$site->sediment_value) . "</div>";
-                        echo "</div></td>";
+                        echo "</div>";
+
+                        /*if ($child_contaminants) {
+                            echo "<div class='tooltipster_templates'><div id='tooltip_sediment_{$site->site_id}'><table>";
+                            foreach ($child_contaminants as $child_contaminant){
+                                //print_r($child_contaminant);
+                                echo "<tr><td>{$child_contaminant->name}</td><td>{$child_contaminant->sediment_value}</td></tr>";
+                            }
+                            echo "</table></div></div>";
+                        }*/
+
+                        echo "</td>";
 
                         echo "<td class='name'><a class='border' href='#Map|{$site->site_id}'>{$site->name}</a></td>";
 
-                        echo "<td class='mussels" . (($site->mussels_value!==null)?' bg-bar':'') . "'>" . $extra_label_mussels . "<div class='bar' data-value='{$site->mussels_value}'>";
+                        //echo "<td class='mussels" . (($site->mussels_value!==null)?' bg-bar':'') . "'>" . $extra_label_mussels;
+                        echo "<td class='mussels" . (($contaminant->aggregate && $site->mussels_value)?" tooltip-ajax":"") . (($site->mussels_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='2' data-contaminant-id='{$contaminant->id}'>" . $extra_label_mussels;
+
+                        echo "<div class='bar' data-value='{$site->mussels_value}'>";
                         echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_mussels)?'':$site->mussels_value) . "</div></div><div class='value dark'>" . (($extra_label_mussels)?'':$site->mussels_value) . "</div>";
                         echo "</div></td>";
                         echo "</tr>";
@@ -129,6 +150,7 @@ get_header(); ?>
                 } ?>
 
                 </table>
+
             </div>
 
             <?php the_content();?>
@@ -174,15 +196,17 @@ get_header(); ?>
 		endwhile; // End of the loop.
 		?>
 
+        </div></article>
 		</main><!-- #main -->
 
 		<div id="left-nav">
 			<div class="close">&times;</div>
-			<h2>Contaminants</h2>
+			<h3>Contaminants</h3>
 			<ul>
 			<?php
-			$walker = new PTWalker();
-			echo $walker->walk($nav_contaminants,3);
+            wp_nav_menu( array( 'theme_location' => 'contaminant-left-nav' ) );
+			//$walker = new PTWalker();
+			//echo $walker->walk($nav_contaminants,3);
 			?>
 			</ul>
 		</div>
