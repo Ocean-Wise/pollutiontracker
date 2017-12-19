@@ -33,10 +33,26 @@ function safeRead() {
 
 (function($) {
 	jQuery(document).ready(function () {
-		var container, button, menu, links, i, len;
+
+        if ($('.et_builder_inner_content .et_pb_section:first-of-type').hasClass('et_pb_fullwidth_section')) $('body').addClass('fullwidth-header');
+
+        var container, button, menu, links, i, len;
 		$(document).on('click', '.burger', function () {
 			$('body').toggleClass('show-main-nav');
 		});
+
+        // Hello bar
+        $(document).ready(function() {
+            $('.hello-bar-btn').click(function(){
+                $('#hello-bar-toggle').toggleClass( "hello-bar-btn-open hello-bar-btn-closed" );
+                $('.hello-bar-menu').toggleClass( "hello-bar-menu-closed hello-bar-menu-open" );
+            });
+        });
+
+        $(document).on('scroll', function(e){
+            $('body').toggleClass('scrolled', ($(this).scrollTop() > 50));
+        });
+        $(document).trigger('scroll');
 
 		$(document).on('click', '.main-navigation-mobile .close', function (e) {
 			e.preventDefault();
@@ -47,17 +63,40 @@ function safeRead() {
 			theme:'tooltipster-shadow',
 			contentAsHTML: true,
 			side: ['bottom', 'top', 'left', 'right'],
-			trigger: 'hover'
+			trigger: 'hover',
+			distance: -10,
+            functionInit: function(instance, helper){
+
+                var $origin = $(helper.origin),
+                    dataOptions = $origin.attr('data-tooltipster');
+
+                if(dataOptions){
+
+                    dataOptions = JSON.parse(dataOptions);
+
+                    $.each(dataOptions, function(name, option){
+                        instance.option(name, option);
+                    });
+                }
+            }
 
 		});
+
+		$(document).on('click', '.toMapSection', function(e) {
+			e.preventDefault();
+            document.querySelector('#map-section').scrollIntoView({
+                behavior: 'smooth',
+				block: 'center'
+            });
+        });
 
 		$('.tooltip-ajax').tooltipster({
 			theme:'tooltipster-shadow',
 			side: ['bottom', 'top', 'left', 'right'],
 			updateAnimation: null,
-			content: 'Loading...',
+			content: null,
 			contentAsHTML: true,
-			distance: -7,
+			distance: -10,
 			trigger: 'hover',
 
 

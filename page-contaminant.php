@@ -81,32 +81,33 @@ get_header(); ?>
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">
+            <?php if ($contaminant){?>
 
             <div class="histogram-wrap">
 
                 <table class="histogram">
                     <tr><th>
                             <h3>Sediment</h3>
-                            <div class="units"><span class="extra"><?php echo $contaminant->name;?> (</span><?php echo $contaminant->units_sediment;?><span class="extra"> dry weight)</span></div>
+                            <div class="units"><span class="extra"><?php echo $contaminant->name;?> (</span><?php echo $contaminant->units_sediment;?> dry&nbsp;weight<span class="extra">)</span></div>
                         </th>
                         <th></th>
                         <th>
                             <h3>Mussels</h3>
-                            <div class="units"><span class="extra"><?php echo $contaminant->name;?> (</span><?php echo $contaminant->units_mussels;?><span class="extra"> wet weight)</span></div>
+                            <div class="units"><span class="extra"><?php echo $contaminant->name;?> (</span><?php echo $contaminant->units_mussels;?> wet&nbsp;weight<span class="extra">)</span></div>
                         </th>
                     </tr>
                     <tr class="gridrow">
                         <th>
                             <div class="gridlines sediment">
-                                <div class="guideline sediment-quality tooltip" data-label="Guideline" data-value="<?php echo $contaminant->sediment_quality_guideline;?>" title="Sediment Quality Guideline (<?php echo $contaminant->sediment_quality_guideline . ' ' . $contaminant->units_sediment;?>)">
+                                <div class="guideline sediment-quality tooltip" data-tooltipster='{"distance":10}' data-label="Guideline" data-value="<?php echo $contaminant->sediment_quality_guideline;?>" title="Sediment Quality Guideline (<?php echo $contaminant->sediment_quality_guideline . ' ' . $contaminant->units_sediment;?>)">
                                 </div>
-                                <div class="guideline effects-level tooltip" data-label="Probable Effects Level" data-value="<?php echo $contaminant->probable_effects_level;?>" title="Probable Effects Level (<?php echo $contaminant->probable_effects_level . ' ' . $contaminant->units_sediment;?>)"></div>
+                                <div class="guideline effects-level tooltip" data-tooltipster='{"distance":10}' data-label="Probable Effects Level" data-value="<?php echo $contaminant->probable_effects_level;?>" title="Probable Effects Level (<?php echo $contaminant->probable_effects_level . ' ' . $contaminant->units_sediment;?>)"></div>
                             </div>
                         </th>
                         <th></th>
                         <th>
                             <div class="gridlines mussels">
-                                <div class="guideline tissue-residue-guideline" data-label="Guideline" data-value="<?php echo $contaminant->tissue_residue_guideline;?>" title="Tissue Residue Guideline (<?php echo $contaminant->tissue_residue_guideline . ' ' . $contaminant->units_mussels;?>)"></div>
+                                <div class="guideline tissue-residue-guideline" data-tooltipster='{"distance":10}' data-label="Guideline" data-value="<?php echo $contaminant->tissue_residue_guideline;?>" title="Tissue Residue Guideline (<?php echo $contaminant->tissue_residue_guideline . ' ' . $contaminant->units_mussels;?>)"></div>
                             </div>
                         </th>
                     </tr>
@@ -117,11 +118,11 @@ get_header(); ?>
                     foreach($values as $site){
                         $sediment_percent = ($max_sediment)?($site->sediment_value / $max_sediment * 100):0;
                         $mussels_percent = ($max_mussels)?($site->mussels_value / $max_mussels * 100):0;
-                        $extra_label_sediment = (($site->sediment_value===null)?"<div class='extra-label'>Non analysed</div>":(($site->sediment_not_detected)?"<div class='extra-label'>Not detected</div>":''));
-                        $extra_label_mussels = (($site->mussels_value===null)?"<div class='extra-label'>Not analysed</div>":(($site->mussels_not_detected)?"<div class='extra-label'>Not detected</div>":''));
+                        $extra_label_sediment = (($site->sediment_value===null)?"<div class='extra-label'>Not analyzed</div>":(($site->sediment_not_detected)?"<div class='extra-label'>Not detected</div>":''));
+                        $extra_label_mussels = (($site->mussels_value===null)?"<div class='extra-label'>Not analyzed</div>":(($site->mussels_not_detected)?"<div class='extra-label'>Not detected</div>":''));
 
                         echo "<tr>";
-                        echo "<td class='sediment" . (($contaminant->aggregate && $site->sediment_value)?" tooltip-ajax":"") . (($site->sediment_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='1' data-contaminant-id='{$contaminant->id}'>" . $extra_label_sediment;
+                        echo "<td class='sediment" . (($contaminant->aggregate && $site->sediment_value)?" tooltip-ajax":" tooltip") . (($site->sediment_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='1' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_sediment)?strip_tags($extra_label_sediment):$site->sediment_value . (($site->sediment_value==0)?' ':'') . $contaminant->units_sediment) . "'>" . $extra_label_sediment;
                         echo "<div class='bar' data-value='{$site->sediment_value}'>";
                         echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_sediment)?'':$site->sediment_value) . "</div></div><div class='value dark'>" . (($extra_label_sediment)?'':$site->sediment_value) . "</div>";
                         echo "</div>";
@@ -140,7 +141,7 @@ get_header(); ?>
                         echo "<td class='name'><a class='border' href='#Map|{$site->site_id}'>{$site->name}</a></td>";
 
                         //echo "<td class='mussels" . (($site->mussels_value!==null)?' bg-bar':'') . "'>" . $extra_label_mussels;
-                        echo "<td class='mussels" . (($contaminant->aggregate && $site->mussels_value)?" tooltip-ajax":"") . (($site->mussels_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='2' data-contaminant-id='{$contaminant->id}'>" . $extra_label_mussels;
+                        echo "<td class='mussels" . (($contaminant->aggregate && $site->mussels_value)?" tooltip-ajax":" tooltip") . (($site->mussels_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='2' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_mussels)?strip_tags($extra_label_mussels):$site->mussels_value . (($site->mussels_value==0)?' ':'') . $contaminant->units_mussels) . "'>" . $extra_label_mussels;
 
                         echo "<div class='bar' data-value='{$site->mussels_value}'>";
                         echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_mussels)?'':$site->mussels_value) . "</div></div><div class='value dark'>" . (($extra_label_mussels)?'':$site->mussels_value) . "</div>";
@@ -152,6 +153,7 @@ get_header(); ?>
                 </table>
 
             </div>
+            <?php } ?>
 
             <?php the_content();?>
 
@@ -201,7 +203,7 @@ get_header(); ?>
 
 		<div id="left-nav">
 			<div class="close">&times;</div>
-			<h3>Contaminants</h3>
+			<?php /*<h3>Contaminants</h3>*/?>
 			<ul>
 			<?php
             wp_nav_menu( array( 'theme_location' => 'contaminant-left-nav' ) );
