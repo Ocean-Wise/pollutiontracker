@@ -1147,6 +1147,10 @@ body.home .main-navigation li a{
 	margin-right: auto;
 }
 
+.marginTop2{
+	margin-top: 2em;
+}
+
 /*--------------------------------------------------------------
 # Clearings
 --------------------------------------------------------------*/
@@ -1377,7 +1381,7 @@ body.home h1{
 .page-content,
 .entry-content,
 .entry-summary {
-	margin: 0 0 50px 0;
+	margin: 0 0 0px 0;
 }
 
 .page-links {
@@ -1450,11 +1454,12 @@ object {
 }
 
 .wp-caption .wp-caption-text {
-	margin: 0.8075em 0;
+	margin: 0;
+	font-size: 1.4rem;
 }
 
 .wp-caption-text {
-	text-align: center;
+	text-align: left;
 }
 
 /*--------------------------------------------------------------
@@ -1612,7 +1617,7 @@ body.admin-bar .map-wrap{
 }
 
 #map-wrap .panel .content{
-    padding: 15px !important;
+    padding: 15px 15px 30px 15px !important;
 }
 
 body.show-map{
@@ -2054,6 +2059,45 @@ td.mussels, th.mussels{
 	-webkit-font-smoothing: antialiased;
 	font-weight: bold;
 	display: none;
+}
+
+.histogram .bg-bar.off-scale .value{
+	display: inline-block;
+	left: 10px;
+	right: auto;
+}
+
+.histogram .mussels.bg-bar.off-scale .value{
+	display: inline-block;
+	right: 10px;
+	left: auto;
+}
+
+.histogram .bg-bar.off-scale .bar-fill:after{
+	content: '';
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	border-top: 10px solid #fff;
+	border-left: 10px solid #fff;
+	transform: rotate(-45deg);
+	background: transparent;
+	left: -5px;
+	top: -5px;
+}
+
+.histogram .mussels.bg-bar.off-scale .bar-fill:after{
+	content: '';
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	border-top: 10px solid #fff;
+	border-left: 10px solid #fff;
+	transform: rotate(135deg);
+	background: transparent;
+	right: -5px;
+	left: auto;
+	top: -5px;
 }
 
 .histogram .gridlines.mussels{

@@ -21,48 +21,62 @@ if ($contaminant_id){
 }*/
 
 $contaminants = $wpdb->get_results("SELECT * FROM wp_contaminants ORDER BY name;");
-$nav_contaminants = $wpdb->get_results("
-SELECT *
-FROM
-	wp_contaminants WHERE
-	(parent_id IS NULL AND aggregate IS NULL) OR
-	(is_group=1 AND aggregate=1) OR
-	parent_id = 38
-ORDER BY name;"
-);
-
 
 $arrNav = [];
 $arrContaminantsAssoc = [];
 
 if ($contaminant){
+    $max_sediment = 0;
+    $max_mussels = 0;
+    $off_scale_factor = 1.5;
+    $sediment_off_scale = false;
+    $mussels_off_scale = false;
+    
 	$values = PollutionTracker::getContaminantValues(array('contaminant_id'=>$contaminant_id));
-	//echo "<pre>" . print_r($values,true) . "</pre>";
-	$max_sediment = 0;
-	$max_mussels = 0;
-    $sediment_decimals = 0;
-    $mussels_decimals = 0;
-	foreach($values as $value){
+
+    $values_sorted_sediment = $values;
+    usort($values_sorted_sediment, function($a, $b){
+        return $a->sediment_value < $b->sediment_value;
+    });
+
+    $values_sorted_mussels = $values;
+    usort($values_sorted_mussels, function($a, $b){
+        return $a->mussels_value < $b->mussels_value;
+    });
+
+    // Figure out if the larges value should go off scale
+    
+    
+    // If the largest item a lot larger than the second item, show the first one off scale
+    if ($values_sorted_sediment[0]->sediment_value > $values_sorted_sediment[1]->sediment_value*$off_scale_factor && $values_sorted_sediment[1]->sediment_value>0){
+        $sediment_off_scale = true;
+        $max_sediment = $values_sorted_sediment[1]->sediment_value;
+        $values_sorted_sediment[0]->sediment_off_scale = true;
+    }else{
+        $max_sediment = $values_sorted_sediment[0]->sediment_value;
+    }
+
+    if ($values_sorted_mussels[0]->mussels_value > $values_sorted_mussels[1]->mussels_value*$off_scale_factor && $values_sorted_mussels[1]->mussels_value > 0){
+        $mussels_off_scale = true;
+        $max_mussels = $values_sorted_mussels[1]->mussels_value;
+        $values_sorted_mussels[0]->mussels_off_scale = true;
+    }else{
+        $max_mussels = $values_sorted_mussels[0]->mussels_value;
+    }
+	
+	//echo "<pre>" . print_r($values_sorted_mussels,true) . "</pre>";
+    //echo $max_mussels;
+	
+    
+	/*foreach($values as $value){
 		if ($value->sediment_value > $max_sediment) $max_sediment = $value->sediment_value;
 		if ($value->mussels_value > $max_mussels) $max_mussels = $value->mussels_value;
-
-        // Figure out significant digits for each type
-        /*if ($value->sediment_value > 0) {
-            $arrTemp = explode('.', $value->sediment_value);
-            $length = (count($arrTemp) == 2) ? strlen(rtrim($arrTemp[1], '0')) : 0;
-            //echo "Value:{$value->sediment_value} Length:{$length}\n";
-            if ($length > $sediment_decimals) $sediment_decimals = $length;
-        }
-
-        if ($value->mussels_value > 0) {
-            $arrTemp = explode('.', $value->mussels_value);
-            $length = (count($arrTemp) == 2) ? strlen(rtrim($arrTemp[1], '0')) : 0;
-            //echo "Value:{$value->mussels_value} Length:{$length}<br>";
-            if ($length > $mussels_decimals) $mussels_decimals = $length;
-        }*/
-	}
-
+	}*/
 }
+
+
+
+//echo "<!--" . print_r($values_sorted_sediment,true) . "-->";
 
 
 
@@ -121,10 +135,15 @@ get_header(); ?>
                         $extra_label_sediment = (($site->sediment_value===null)?"<div class='extra-label'>Not analyzed</div>":(($site->sediment_not_detected)?"<div class='extra-label'>Not detected</div>":''));
                         $extra_label_mussels = (($site->mussels_value===null)?"<div class='extra-label'>Not analyzed</div>":(($site->mussels_not_detected)?"<div class='extra-label'>Not detected</div>":''));
 
+                        // We're doing a join, so if there's no id for a contaminant/site, it wasn't sampled
+                        if ($site->sediment_id===null) $extra_label_sediment = "<div class='extra-label'>Not sampled</div>";
+                        if ($site->mussels_id===null) $extra_label_mussels = "<div class='extra-label'>Not sampled</div>";
+
+
                         echo "<tr>";
-                        echo "<td class='sediment" . (($contaminant->aggregate && $site->sediment_value)?" tooltip-ajax":" tooltip") . (($site->sediment_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='1' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_sediment)?strip_tags($extra_label_sediment):$site->sediment_value . (($site->sediment_value==0)?' ':'') . $contaminant->units_sediment) . "'>" . $extra_label_sediment;
+                        echo "<td class='sediment" . (($contaminant->aggregate && $site->sediment_value)?" tooltip-ajax":" tooltip") . (($site->sediment_value!==null)?' bg-bar':'') . (($site->sediment_off_scale)?' off-scale':'') . "' data-site-id='{$site->id}' data-source-id='1' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_sediment)?strip_tags($extra_label_sediment):$site->sediment_value . (($site->sediment_value==0)?' ':'') . $contaminant->units_sediment) . "'>" . $extra_label_sediment;
                         echo "<div class='bar' data-value='{$site->sediment_value}'>";
-                        echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_sediment)?'':$site->sediment_value) . "</div></div><div class='value dark'>" . (($extra_label_sediment)?'':$site->sediment_value) . "</div>";
+                        echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_sediment)?'':$site->sediment_value . ' ' . $contaminant->units_sediment) . "</div></div><div class='value dark'>" . (($extra_label_sediment)?'':$site->sediment_value  . ' ' . $contaminant->units_sediment) . "</div>";
                         echo "</div>";
 
                         /*if ($child_contaminants) {
@@ -141,10 +160,10 @@ get_header(); ?>
                         echo "<td class='name'><a class='border' href='#Map|{$site->site_id}'>{$site->name}</a></td>";
 
                         //echo "<td class='mussels" . (($site->mussels_value!==null)?' bg-bar':'') . "'>" . $extra_label_mussels;
-                        echo "<td class='mussels" . (($contaminant->aggregate && $site->mussels_value)?" tooltip-ajax":" tooltip") . (($site->mussels_value!==null)?' bg-bar':'') . "' data-site-id='{$site->id}' data-source-id='2' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_mussels)?strip_tags($extra_label_mussels):$site->mussels_value . (($site->mussels_value==0)?' ':'') . $contaminant->units_mussels) . "'>" . $extra_label_mussels;
+                        echo "<td class='mussels" . (($contaminant->aggregate && $site->mussels_value)?" tooltip-ajax":" tooltip") . (($site->mussels_value!==null)?' bg-bar':'') . (($site->mussels_off_scale)?' off-scale':'') . "' data-site-id='{$site->id}' data-source-id='2' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_mussels)?strip_tags($extra_label_mussels):$site->mussels_value . (($site->mussels_value==0)?' ':'') . $contaminant->units_mussels) . "'>" . $extra_label_mussels;
 
                         echo "<div class='bar' data-value='{$site->mussels_value}'>";
-                        echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_mussels)?'':$site->mussels_value) . "</div></div><div class='value dark'>" . (($extra_label_mussels)?'':$site->mussels_value) . "</div>";
+                        echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_mussels)?'':$site->mussels_value  . ' ' . $contaminant->units_mussels) . "</div></div><div class='value dark'>" . (($extra_label_mussels)?'':$site->mussels_value . ' ' . $contaminant->units_mussels) . "</div>";
                         echo "</div></td>";
                         echo "</tr>";
                     }

@@ -10,7 +10,7 @@
 get_header(); ?>
 
 	<section id="primary" class="content-area">
-		<main id="main" class="site-main">
+		<main id="main" class="site-main max-width marginTop2">
 
 		<?php
 		if ( have_posts() ) : ?>
@@ -47,5 +47,5 @@ get_header(); ?>
 	</section><!-- #primary -->
 
 <?php
-get_sidebar();
+
 get_footer();
