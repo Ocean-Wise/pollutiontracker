@@ -44,7 +44,7 @@ if ($contaminant){
         return $a->mussels_value < $b->mussels_value;
     });
 
-    // Figure out if the larges value should go off scale
+    // Figure out if the largest value should go off scale
     
     
     // If the largest item a lot larger than the second item, show the first one off scale
@@ -63,21 +63,8 @@ if ($contaminant){
     }else{
         $max_mussels = $values_sorted_mussels[0]->mussels_value;
     }
-	
-	//echo "<pre>" . print_r($values_sorted_mussels,true) . "</pre>";
-    //echo $max_mussels;
-	
-    
-	/*foreach($values as $value){
-		if ($value->sediment_value > $max_sediment) $max_sediment = $value->sediment_value;
-		if ($value->mussels_value > $max_mussels) $max_mussels = $value->mussels_value;
-	}*/
+
 }
-
-
-
-//echo "<!--" . print_r($values_sorted_sediment,true) . "-->";
-
 
 
 get_header(); ?>
@@ -127,7 +114,6 @@ get_header(); ?>
                     </tr>
                 <?php
 
-                //echo $nav_html;
                 if ($values){
                     foreach($values as $site){
                         $sediment_percent = ($max_sediment)?($site->sediment_value / $max_sediment * 100):0;
@@ -145,15 +131,6 @@ get_header(); ?>
                         echo "<div class='bar' data-value='{$site->sediment_value}'>";
                         echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_sediment)?'':$site->sediment_value . ' ' . $contaminant->units_sediment) . "</div></div><div class='value dark'>" . (($extra_label_sediment)?'':$site->sediment_value  . ' ' . $contaminant->units_sediment) . "</div>";
                         echo "</div>";
-
-                        /*if ($child_contaminants) {
-                            echo "<div class='tooltipster_templates'><div id='tooltip_sediment_{$site->site_id}'><table>";
-                            foreach ($child_contaminants as $child_contaminant){
-                                //print_r($child_contaminant);
-                                echo "<tr><td>{$child_contaminant->name}</td><td>{$child_contaminant->sediment_value}</td></tr>";
-                            }
-                            echo "</table></div></div>";
-                        }*/
 
                         echo "</td>";
 
@@ -182,7 +159,6 @@ get_header(); ?>
                 var musselsGrid = new GridLines({graph: jQuery('.histogram-wrap .gridlines.mussels'), min: 0, max: <?php echo $max_mussels;?>, direction: 1, });
 
                 $('.histogram .sediment .bar').each(function(item){
-                    //console.log(sedimentGrid.gridMax);
                     $(this).css({maxWidth: (sedimentGrid.gridMax?($(this).attr('data-value') / sedimentGrid.gridMax * 100):0) + '%'});
                 });
 
@@ -226,8 +202,6 @@ get_header(); ?>
 			<ul>
 			<?php
             wp_nav_menu( array( 'theme_location' => 'contaminant-left-nav' ) );
-			//$walker = new PTWalker();
-			//echo $walker->walk($nav_contaminants,3);
 			?>
 			</ul>
 		</div>

@@ -1151,6 +1151,10 @@ body.home .main-navigation li a{
 	margin-top: 2em;
 }
 
+.marginBottomNone{
+	margin: 0 !important;
+}
+
 /*--------------------------------------------------------------
 # Clearings
 --------------------------------------------------------------*/
@@ -1622,6 +1626,14 @@ body.admin-bar .map-wrap{
 
 body.show-map{
     overflow: hidden;
+}
+
+.leaflet-control-attribution{
+	bottom: 45px;
+}
+
+.leaflet-control-attribution a{
+	color: #333;
 }
 
 .map-wrap.show-map{
