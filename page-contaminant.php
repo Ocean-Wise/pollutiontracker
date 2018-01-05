@@ -105,7 +105,7 @@ get_header(); ?>
                                 <div class="guideline effects-level tooltip" data-tooltipster='{"distance":10}' data-label="Probable Effects Level" data-value="<?php echo $contaminant->probable_effects_level;?>" title="Probable Effects Level (<?php echo $contaminant->probable_effects_level . ' ' . $contaminant->units_sediment;?>)"></div>
                             </div>
                         </th>
-                        <th></th>
+                        <td style="vertical-align: bottom;text-align: center">North</td>
                         <th>
                             <div class="gridlines mussels">
                                 <div class="guideline tissue-residue-guideline" data-tooltipster='{"distance":10}' data-label="Guideline" data-value="<?php echo $contaminant->tissue_residue_guideline;?>" title="Tissue Residue Guideline (<?php echo $contaminant->tissue_residue_guideline . ' ' . $contaminant->units_mussels;?>)"></div>
@@ -127,7 +127,7 @@ get_header(); ?>
 
 
                         echo "<tr>";
-                        echo "<td class='sediment" . (($contaminant->aggregate && $site->sediment_value)?" tooltip-ajax":" tooltip") . (($site->sediment_value!==null)?' bg-bar':'') . (($site->sediment_off_scale)?' off-scale':'') . "' data-site-id='{$site->id}' data-source-id='1' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_sediment)?strip_tags($extra_label_sediment):$site->sediment_value . (($site->sediment_value==0)?' ':'') . $contaminant->units_sediment) . "'>" . $extra_label_sediment;
+                        echo "<td class='sediment" . (($contaminant->aggregate && $site->sediment_value)?" tooltip-ajax":" tooltip") . (($site->sediment_value!==null)?' bg-bar':'') . (($site->sediment_off_scale)?' off-scale':'') . "' data-site-id='{$site->id}' data-source-id='1' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_sediment)?strip_tags($extra_label_sediment):round($site->sediment_value,3) . (($site->sediment_value==0)?' ':'') . ' ' . $contaminant->units_sediment) . "'>" . $extra_label_sediment;
                         echo "<div class='bar' data-value='{$site->sediment_value}'>";
                         echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_sediment)?'':$site->sediment_value . ' ' . $contaminant->units_sediment) . "</div></div><div class='value dark'>" . (($extra_label_sediment)?'':$site->sediment_value  . ' ' . $contaminant->units_sediment) . "</div>";
                         echo "</div>";
@@ -137,7 +137,7 @@ get_header(); ?>
                         echo "<td class='name'><a class='border' href='#Map|{$site->site_id}'>{$site->name}</a></td>";
 
                         //echo "<td class='mussels" . (($site->mussels_value!==null)?' bg-bar':'') . "'>" . $extra_label_mussels;
-                        echo "<td class='mussels" . (($contaminant->aggregate && $site->mussels_value)?" tooltip-ajax":" tooltip") . (($site->mussels_value!==null)?' bg-bar':'') . (($site->mussels_off_scale)?' off-scale':'') . "' data-site-id='{$site->id}' data-source-id='2' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_mussels)?strip_tags($extra_label_mussels):$site->mussels_value . (($site->mussels_value==0)?' ':'') . $contaminant->units_mussels) . "'>" . $extra_label_mussels;
+                        echo "<td class='mussels" . (($contaminant->aggregate && $site->mussels_value)?" tooltip-ajax":" tooltip") . (($site->mussels_value!==null)?' bg-bar':'') . (($site->mussels_off_scale)?' off-scale':'') . "' data-site-id='{$site->id}' data-source-id='2' data-contaminant-id='{$contaminant->id}' title='" . (($extra_label_mussels)?strip_tags($extra_label_mussels):round($site->mussels_value,3) . (($site->mussels_value==0)?' ':'') . ' ' . $contaminant->units_mussels) . "'>" . $extra_label_mussels;
 
                         echo "<div class='bar' data-value='{$site->mussels_value}'>";
                         echo "<div class='bar-fill'><div class='value light'>" . (($extra_label_mussels)?'':$site->mussels_value  . ' ' . $contaminant->units_mussels) . "</div></div><div class='value dark'>" . (($extra_label_mussels)?'':$site->mussels_value . ' ' . $contaminant->units_mussels) . "</div>";
@@ -145,6 +145,7 @@ get_header(); ?>
                         echo "</tr>";
                     }
                 } ?>
+                    <tr><td></td><td style="vertical-align: top; text-align: center">South</td><td></td></tr>
 
                 </table>
 

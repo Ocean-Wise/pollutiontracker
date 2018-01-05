@@ -2247,6 +2247,15 @@ td.mussels, th.mussels{
 	text-align: center;
 }
 
+.admin-bar .tooltipster-base{
+	margin-top: -32px;
+}
+@media (max-width: 782px){
+	.admin-bar .tooltipster-base{
+		margin-top: -46px;
+	}
+}
+
 .tooltipster_templates{
 	display: none;
 }
