@@ -1358,6 +1358,10 @@ body.home .et_pb_section_0 .header-content{
     flex-direction: column;
 }
 
+body.home .et_pb_fullwidth_header_0{
+	min-height: 100vh !important;
+}
+
 body.home h1{
     margin-bottom: 0.2em !important;
 }
@@ -1973,8 +1977,8 @@ body.show-map{
 .histogram td.bg-bar:after{
 	position: absolute;
 	content: '';
-	top: 0;
-	bottom: 0;
+	top: 10px;
+	bottom: auto;
 	left: 0;
 	right: 0;
 	height: 5px;
@@ -2046,8 +2050,8 @@ td.mussels, th.mussels{
     display: inline-block;
     width: 100%;
     margin: auto;
-    top: 0;
-    bottom: 0;
+    top: 5px;
+    bottom: auto;
 	max-width: 0;
 }
 
@@ -2144,7 +2148,7 @@ td.mussels, th.mussels{
 }
 
 .histogram-wrap .gridlines{
-	top: 100%;
+	top: 45px;
 }
 
 .histogram .gridline{

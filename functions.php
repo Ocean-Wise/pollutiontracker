@@ -121,7 +121,7 @@ add_action( 'widgets_init', 'tracker_widgets_init' );
  */
 function tracker_scripts() {
 	wp_enqueue_style( 'tracker-style', get_stylesheet_uri(), false, filemtime(get_stylesheet_directory() . '/style.css') );
-	wp_enqueue_style( 'hello-bar', 'https://vanaqua.org/themes/vanaqua/media/css/hello-bar.css',false );
+	wp_enqueue_style( 'hello-bar', get_template_directory_uri() . '/hello-bar.css',false, filemtime(get_stylesheet_directory() . '/hello-bar.css') );
 	wp_enqueue_style( 'social-icon-font', 'https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?u8vidh',false );
 	wp_enqueue_style( 'tooltipster', get_template_directory_uri() . '/js/tooltipster.bundle.min.css',false );
     wp_enqueue_style( 'tooltipster-theme', get_template_directory_uri() . '/js/tooltipster-sideTip-shadow.min.css',false );
