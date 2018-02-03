@@ -79,6 +79,7 @@ get_header(); ?>
 		<header class="entry-header max-width">
 			<a href="/contaminants" class="showLeftNav arrowLeft">View all contaminants</a>
 			<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
+            <?php if ($contaminant->aggregate){?><p style="margin-top:-1.5em;font-size:1.4rem;">Total levels shown; click bars to view detailed pesticide profiles</p><?php }?>
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">

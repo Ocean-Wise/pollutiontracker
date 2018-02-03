@@ -63,7 +63,18 @@ function safeRead() {
 			theme:'tooltipster-shadow',
 			contentAsHTML: true,
 			side: ['bottom', 'top', 'left', 'right'],
-			trigger: 'hover',
+			trigger: 'custom',
+			triggerOpen: {
+				mouseenter:true,
+				click:true,
+				tap:true,
+			},
+			triggerClose:{
+				click:false,
+				originClick:false,
+				touchleave:true,
+				mouseleave:true
+			},
 			distance: -10,
             functionInit: function(instance, helper){
 
@@ -97,7 +108,18 @@ function safeRead() {
 			content: null,
 			contentAsHTML: true,
 			distance: -10,
-			trigger: 'hover',
+            trigger: 'custom',
+            triggerOpen: {
+                mouseenter:true,
+                click:true,
+                tap:true,
+            },
+            triggerClose:{
+                click:false,
+                originClick:false,
+                touchleave:true,
+                mouseleave:true
+            },
 
 
 			// 'instance' is basically the tooltip. More details in the "Object-oriented Tooltipster" section.
