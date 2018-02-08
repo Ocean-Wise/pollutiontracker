@@ -28,10 +28,10 @@
 			) );?>
 			<div class="copyright"><a href="https://ocean.org" target="_blank">&copy;<?php echo date('Y');?> Ocean&nbsp&nbsp;Wise</a></div>
 			<ul class="social-icons">
-				<li><a href="https://www.facebook.com/vanaqua" target="_blank" class="socicon-facebook"></a></li>
-				<li><a href="https://twitter.com/vanaqua" target="_blank" class="socicon-twitter"></a></li>
-				<li><a href="https://instagram.com/vanaqua" target="_blank" class="socicon-instagram"></a></li>
-				<li><a href="https://www.youtube.com/user/VancouverAquarium" target="_blank" class="socicon-youtube"></a></li>
+				<li><a href="https://www.facebook.com/oceanwise" target="_blank" class="socicon-facebook"></a></li>
+				<li><a href="https://twitter.com/oceanwise" target="_blank" class="socicon-twitter"></a></li>
+				<li><a href="https://instagram.com/oceanwise" target="_blank" class="socicon-instagram"></a></li>
+				<li><a href="https://www.youtube.com/channel/UC0hLWXESQRctgaVPT-8N7Rw" target="_blank" class="socicon-youtube"></a></li>
 				<li><a href="https://snapchat.com/add/vanaqua" target="_blank" class="socicon-snapchat"></a></li>
 			</ul>
 		</div>

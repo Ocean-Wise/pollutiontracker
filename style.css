@@ -2284,6 +2284,10 @@ td.mussels, th.mussels{
 }
 
 
+#et_builder_outer_content .et_pb_fullwidth_section.et_pb_section_0{
+	background-color: #283c50 !important;
+}
+
 @media screen and (max-width: 740px) {
 	.main-navigation {
 		display: none;
