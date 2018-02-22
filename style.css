@@ -1674,7 +1674,7 @@ body.show-map{
     transition: transform 300ms ease !important;
 	overflow-y: scroll;
 	overflow-x: hidden;
-    font-size: 1.13rem;
+    font-size: 1.2rem;
     -webkit-font-smoothing: subpixel-antialiased;
 	font-weight: 600;
 
