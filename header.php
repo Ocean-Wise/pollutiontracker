@@ -29,9 +29,9 @@
             </div>
 
             <div class="hello-bar-logo-toggle">
-                <img class="hello-bar-logo" src="https://vanaqua.org/themes/vanaqua/images/hello-bar-ow-logo.svg">
+                <img class="hello-bar-logo" src="<?php echo get_template_directory_uri();?>/images/hello-bar-ow-logo.svg">
                 <a id="hello-bar-toggle" class="hello-bar-btn hello-bar-btn-open">
-                    <img class="hello-bar-icon" src="https://vanaqua.org/themes/vanaqua/images/hello-bar-chevron.svg">
+                    <img class="hello-bar-icon" src="<?php echo get_template_directory_uri();?>/images/hello-bar-chevron.svg">
                 </a>
             </div>
 
